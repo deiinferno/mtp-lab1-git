@@ -3,6 +3,12 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 нумерация версий — [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [1.1.0] — 2026-09-11
+
+### Добавлено
+- Функция `top_words` в `lexico.analyzer`: n самых частых слов текста.
+- Консольная команда `python -m lexico top FILE -n N`.
+
 ## [1.0.1] — 2026-09-11
 
 ### Исправлено
