@@ -1,6 +1,7 @@
 """Функции подсчёта статистики текста."""
 
 import re
+from collections import Counter
 
 # Слово: буквы или цифры; внутри слова допускаются дефис и апостроф.
 WORD_RE = re.compile(r"[A-Za-zА-Яа-яЁё0-9]+(?:[-\x27][A-Za-zА-Яа-яЁё0-9]+)*")
@@ -47,3 +48,10 @@ def text_stats(text: str) -> dict[str, int | float]:
         "lines": count_lines(text),
         "avg_word_length": round(average_word_length(text), 2),
     }
+
+
+def top_words(text: str, n: int = 10) -> list[tuple[str, int]]:
+    """Вернуть n самых частых слов в виде пар (слово, частота)."""
+    if n <= 0:
+        return []
+    return Counter(tokenize(text)).most_common(n)

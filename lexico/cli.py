@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 from lexico import __version__
-from lexico.analyzer import text_stats
+from lexico.analyzer import text_stats, top_words
 
 LABELS = {
     "chars": "Символов",
@@ -30,6 +30,14 @@ def cmd_stats(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_top(args: argparse.Namespace) -> int:
+    """Команда top: вывести самые частые слова файла."""
+    words = top_words(read_text(args.file), args.number)
+    for rank, (word, freq) in enumerate(words, start=1):
+        print(f"{rank}. {word}: {freq}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Собрать разбор аргументов командной строки."""
     parser = argparse.ArgumentParser(
@@ -43,6 +51,14 @@ def build_parser() -> argparse.ArgumentParser:
     stats = subparsers.add_parser("stats", help="сводная статистика текста")
     stats.add_argument("file", help="путь к текстовому файлу (UTF-8)")
     stats.set_defaults(func=cmd_stats)
+
+    top = subparsers.add_parser("top", help="самые частые слова текста")
+    top.add_argument("file", help="путь к текстовому файлу (UTF-8)")
+    top.add_argument(
+        "-n", "--number", type=int, default=10,
+        help="сколько слов показать (по умолчанию 10)",
+    )
+    top.set_defaults(func=cmd_top)
 
     return parser
 
