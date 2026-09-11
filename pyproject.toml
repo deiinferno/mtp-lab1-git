@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lexico"
+dynamic = ["version"]
+description = "Консольный анализатор текста (учебный проект, лабораторная работа № 1 по Git)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Arseniy Markov" }]
+
+[project.scripts]
+lexico = "lexico.cli:main"
+
+[tool.setuptools]
+packages = ["lexico"]
+
+[tool.setuptools.dynamic]
+version = { attr = "lexico.__version__" }
