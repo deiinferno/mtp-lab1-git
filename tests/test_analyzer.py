@@ -9,6 +9,7 @@ from lexico.analyzer import (
     count_words,
     text_stats,
     tokenize,
+    top_words,
 )
 
 SAMPLE = "Git хранит историю.\nGit — распределённая система!\n"
@@ -52,6 +53,17 @@ class TextStatsTests(unittest.TestCase):
         )
         self.assertEqual(stats["words"], 6)
         self.assertEqual(stats["lines"], 2)
+
+
+class TopWordsTests(unittest.TestCase):
+    def test_most_frequent_words_come_first(self):
+        self.assertEqual(top_words("a b a c a b", 2), [("a", 3), ("b", 2)])
+
+    def test_counting_is_case_insensitive(self):
+        self.assertEqual(top_words("Git git GIT", 1), [("git", 3)])
+
+    def test_non_positive_n_gives_empty_list(self):
+        self.assertEqual(top_words("a b", 0), [])
 
 
 if __name__ == "__main__":
