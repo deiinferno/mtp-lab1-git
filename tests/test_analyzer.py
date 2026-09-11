@@ -38,6 +38,10 @@ class CountTests(unittest.TestCase):
     def test_average_word_length(self):
         self.assertAlmostEqual(average_word_length("ab abcd"), 3.0)
 
+    def test_average_word_length_of_empty_text_is_zero(self):
+        self.assertEqual(average_word_length(""), 0.0)
+        self.assertEqual(text_stats("")["avg_word_length"], 0.0)
+
 
 class TextStatsTests(unittest.TestCase):
     def test_keys_and_values(self):

@@ -31,8 +31,10 @@ def count_lines(text: str) -> int:
 
 
 def average_word_length(text: str) -> float:
-    """Средняя длина слова в символах."""
+    """Средняя длина слова в символах (0.0 для текста без слов)."""
     words = tokenize(text)
+    if not words:
+        return 0.0
     return sum(len(word) for word in words) / len(words)
 
 
